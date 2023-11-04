@@ -4,8 +4,12 @@ import express from "express";
 import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { v4 as uuidv4 } from "uuid";
+import { EventSource } from "express-ts-sse"
 
 const port = process.env.PORT || 3000;
+
+// create instance of SSE
+const sse = new EventSource()
 
 const app = express();
 
@@ -32,6 +36,22 @@ app.get("/chess", (req, resp) => {
     const orientation = "black"
     resp.status(200).render("chess", { gameID, orientation })
 })
+
+// PATCH /chess/:gameId
+app.patch("/chess/:gameId", express.json(), (req, res) => {
+    // Retrieve data from request
+    const gameID = req.params.gameId
+    const move = req.body
+    //
+    console.info(`GameID: ${gameID}`, move)
+
+    res.status(201).json({ timestamp: (new Date()).getTime() })
+
+})
+
+// pushes to everyone with sse.init
+// GET /chess/stream
+app.get("/chess/stream", sse.init)
 
 // serve files from static
 app.use(express.static(__dirname + "/static"));

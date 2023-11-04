@@ -4,12 +4,25 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{gameID}}</title>
-        <!-- defer = wait until page loaded then run js script -->
+        <!-- JQUERY for chessboardJS -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+            crossorigin="anonymous"
+        ></script>
+        <!-- import Chessboard -->
+        <link rel="stylesheet" href="/css/chessboard-1.0.0.min.css" />
+        <script src="/js/chessboard-1.0.0.min.js"></script>
+        <!-- defer = wait until page loaded then run js script to extract gameID & orientation-->
         <script defer src="/chess.js"></script>
     </head>
     <body data-gameid="{{gameID}}" data-orientation="{{orientation}}">
         <h2><a href="/">Back</a></h2>
         <h1>Game ID: <code>{{gameID}}</code></h1>
         <h1>Orientation: <code>{{orientation}}</code></h1>
+        <section>
+            <!-- Display chess board -->
+            <div id="chess" style="width: 400px"></div>
+        </section>
     </body>
 </html>
