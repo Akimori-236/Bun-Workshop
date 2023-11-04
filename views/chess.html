@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{gameID}}</title>
+        <!-- defer = wait until page loaded then run js script -->
+        <script defer src="/chess.js"></script>
+    </head>
+    <body data-gameid="{{gameID}}" data-orientation="{{orientation}}">
+        <h2><a href="/">Back</a></h2>
+        <h1>Game ID: <code>{{gameID}}</code></h1>
+        <h1>Orientation: <code>{{orientation}}</code></h1>
+    </body>
+</html>
