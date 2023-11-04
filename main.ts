@@ -44,14 +44,16 @@ app.patch("/chess/:gameId", express.json(), (req, res) => {
     const move = req.body
     //
     console.info(`GameID: ${gameID}`, move)
+    sse.send({ event: gameID, data: move }) // send SSE message (data is auto-Stringify for this library)
 
     res.status(201).json({ timestamp: (new Date()).getTime() })
 
 })
 
-// pushes to everyone with sse.init
+// sse.init = Broadcast the SSE to everyone
 // GET /chess/stream
 app.get("/chess/stream", sse.init)
+// ideally need to keep a library of connections and only broadcast to the correct gameID
 
 // serve files from static
 app.use(express.static(__dirname + "/static"));

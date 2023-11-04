@@ -39,4 +39,13 @@ const config = {
 const chess = Chessboard("chess", config);
 
 // Create an SSE connection - to receive pushes from server
-const sse = new EventSource("/chess/stream")
+const sse = new EventSource("/chess/stream");
+// listen to messages only for my gameID
+sse.addEventListener(gameid, (msg) => {
+    console.info("SSE message: ", msg);
+    // const move = JSON.parse(msg.data)
+    const { src, dst, piece } = JSON.parse(msg.data);
+    console.info(`src=${src}, dst=${dst}, piece=${piece}`);
+
+    chess.move(`${src}-${dst}`); // replicate the other players move on my board
+});
